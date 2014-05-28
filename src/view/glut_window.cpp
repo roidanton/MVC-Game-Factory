@@ -96,7 +96,7 @@ void GlutWindow::glutDisplay()
     throw std::out_of_range( "view::GlutWindow::glutDisplay: Could not get pointer to GlutWindow." );
 
   // TODO 4.1: use renderer to draw the model DONE
-  std::shared_ptr<view::GlRenderer> renderer = win->getRenderer;
+  std::shared_ptr<view::GlRenderer> renderer = win->getRenderer();
   renderer->visualize_model(*win);
   /*!!std::cerr << "!! view::GlutWindow::glutDisplay: (PARTS ARE) UNIMPLEMENTED." << std::endl;*/
 }
@@ -111,7 +111,7 @@ void GlutWindow::glutReshape( int width, int height )
   win->_height= height;
 
   // TODO 4.1: use renderer to resize the view DONE
-  std::shared_ptr<view::GlRenderer> renderer = win->getRenderer;
+  std::shared_ptr<view::GlRenderer> renderer = win->getRenderer();
   renderer->resize(*win);
   /*!! std::cerr << "!! view::GlutWindow::glutReshape: (PARTS ARE) UNIMPLEMENTED." << std::endl; */
 }
@@ -123,7 +123,7 @@ void GlutWindow::glutKeyboard( unsigned char glut_key, int mouse_x, int mouse_y 
     throw std::out_of_range( "view::GlutWindow::glutKeyboard: Could not get pointer to GlutWindow." );
 
   // 4.1 Unfertig!
-  std::shared_ptr<controller::InputEventHandler> eventHandler = win->getEventHandler;
+  std::shared_ptr<controller::InputEventHandler> eventHandler = win->getEventHandler();
 
   //if( false /*TODO 4.1: input event handler is valid*/ )
   if (!eventHandler) //Test sinnvoll?
