@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <OpenAL_IncludeDir>..\..\include\</OpenAL_IncludeDir>
+    <OpenAL_LibDir>..\..\lib\</OpenAL_LibDir>
+    <freeALUT_IncludeDir>..\..\include\</freeALUT_IncludeDir>
+    <freeALUT_LibDir>..\..\lib\</freeALUT_LibDir>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <BuildMacro Include="OpenAL_IncludeDir">
+      <Value>$(OpenAL_IncludeDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="OpenAL_LibDir">
+      <Value>$(OpenAL_LibDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="freeALUT_IncludeDir">
+      <Value>$(freeALUT_IncludeDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="freeALUT_LibDir">
+      <Value>$(freeALUT_LibDir)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

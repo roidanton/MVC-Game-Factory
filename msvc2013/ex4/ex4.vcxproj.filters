@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\controller">
+      <UniqueIdentifier>{bbe7fc34-993c-4506-8a73-def9de96b58a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\flappy_box">
+      <UniqueIdentifier>{5a037544-2eca-4f35-acf1-2c6131a512f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\flappy_box\controller">
+      <UniqueIdentifier>{33f684a8-e829-458b-9870-fae0f4124114}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\flappy_box\model">
+      <UniqueIdentifier>{9e625c39-e209-4412-bd18-0af341b225af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\flappy_box\view">
+      <UniqueIdentifier>{27bc7603-68d3-44c7-baa8-c84e98258e18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\model">
+      <UniqueIdentifier>{ae562060-2f1e-45df-9a3b-db65f0e09ffe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\view">
+      <UniqueIdentifier>{f3eb1842-1f24-46a1-868e-a6f062353136}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\controller">
+      <UniqueIdentifier>{167162d9-5e95-4bde-87a6-a73c3211bd09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\flappy_box">
+      <UniqueIdentifier>{8485ee1e-b21e-427c-bebe-9cce68069012}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\flappy_box\controller">
+      <UniqueIdentifier>{5223fbce-adaa-45bf-811b-8f961b792f50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\flappy_box\model">
+      <UniqueIdentifier>{b649fd47-5843-4ec5-a1e0-0be8e4cedf14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\flappy_box\view">
+      <UniqueIdentifier>{2c5b075b-20f9-45f0-b6dc-09063d57383e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\model">
+      <UniqueIdentifier>{79237a6e-fb7e-4fc9-b921-cae08d1d1d1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\view">
+      <UniqueIdentifier>{6ed6b493-494d-4914-bd4a-ce739097c702}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\factory_map.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\controller\engine.hpp">
+      <Filter>Header Files\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\controller\glut_engine.hpp">
+      <Filter>Header Files\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\controller\input_event_handler.hpp">
+      <Filter>Header Files\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\controller\logic.hpp">
+      <Filter>Header Files\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\model\game.hpp">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\model\game_object.hpp">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\view\al_renderer.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\view\gl_renderer.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\view\glut_window.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\main41.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\controller\engine.cpp">
+      <Filter>Source Files\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\controller\glut_engine.cpp">
+      <Filter>Source Files\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\controller\logic.cpp">
+      <Filter>Source Files\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\model\game.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\model\game_object.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\view\al_renderer.cpp">
+      <Filter>Source Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\view\gl_renderer.cpp">
+      <Filter>Source Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\view\glut_window.cpp">
+      <Filter>Source Files\view</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
