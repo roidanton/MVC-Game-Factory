@@ -21,8 +21,8 @@ namespace view
       unsigned int height() const;
 
       // TODO 4.1: declare getters for event handler and renderer DONE
-	  std::shared_ptr<view::GlRenderer>	getRenderer;
-	  std::shared_ptr<controller::InputEventHandler> getEventHandler;
+	  std::shared_ptr<view::GlRenderer>	getRenderer() { return _renderer; }
+	  std::shared_ptr<controller::InputEventHandler> getEventHandler() { return _eventHandler; }
 
       // Request window redisplay.
       void invalidate();
