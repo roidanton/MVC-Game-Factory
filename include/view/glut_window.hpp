@@ -1,9 +1,10 @@
 # pragma once
 
+#include <memory>
+#include <string>
+
 # include "view/gl_renderer.hpp"
 # include "controller/input_event_handler.hpp"
-
-# include <string>
 
 namespace view
 {

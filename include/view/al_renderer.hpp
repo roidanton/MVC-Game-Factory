@@ -1,10 +1,12 @@
 # pragma once
 
+#include <memory>
+
+#include <AL/al.h>
+
 # include "model/game.hpp"
 
 # include "factory_map.hpp"
-
-# include <AL/al.h>
 
 namespace view 
 {

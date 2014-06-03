@@ -1,5 +1,7 @@
 # pragma once
 
+#include <memory>
+
 # include "model/game.hpp"
 # include "controller/logic.hpp"
 
