@@ -5,7 +5,7 @@
 
 namespace controller 
 {
-	class Engine : controller::InputEventHandler, std::enable_shared_from_this<controller::Engine> // TODO 4.1: insert base classes DONE?
+  class Engine: public controller::InputEventHandler, public std::enable_shared_from_this<controller::Engine>
   {
     public:
         Engine(const std::shared_ptr< Logic >& = std::shared_ptr<::controller::Logic>(new ::controller::Logic(std::shared_ptr<::model::Game>(new ::model::Game()))));
