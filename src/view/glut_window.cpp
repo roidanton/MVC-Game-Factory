@@ -14,7 +14,6 @@ GlutWindow::GlutWindow(const std::string& name, size_t width, size_t height, std
 , _eventHandler(eventHandler)
 {
   // TODO 4.1: assign input event handler and renderer DONE
-  /*!!std::cerr << "!! view::GlutWindow::GlutWindow: (PARTS ARE) UNIMPLEMENTED." << std::endl; */
 
   // GLUT GlutWindow Initialization:
   glutInitWindowSize( width, height );
@@ -98,7 +97,6 @@ void GlutWindow::glutDisplay()
   // TODO 4.1: use renderer to draw the model DONE
   std::shared_ptr<view::GlRenderer> renderer = win->getRenderer();
   renderer->visualize_model(*win);
-  /*!!std::cerr << "!! view::GlutWindow::glutDisplay: (PARTS ARE) UNIMPLEMENTED." << std::endl;*/
 }
 
 void GlutWindow::glutReshape( int width, int height )
@@ -113,7 +111,6 @@ void GlutWindow::glutReshape( int width, int height )
   // TODO 4.1: use renderer to resize the view DONE
   std::shared_ptr<view::GlRenderer> renderer = win->getRenderer();
   renderer->resize(*win);
-  /*!! std::cerr << "!! view::GlutWindow::glutReshape: (PARTS ARE) UNIMPLEMENTED." << std::endl; */
 }
 
 void GlutWindow::glutKeyboard( unsigned char glut_key, int mouse_x, int mouse_y )
@@ -125,7 +122,6 @@ void GlutWindow::glutKeyboard( unsigned char glut_key, int mouse_x, int mouse_y 
   // 4.1 Unfertig!
   std::shared_ptr<controller::InputEventHandler> eventHandler = win->getEventHandler();
 
-  //if( false /*TODO 4.1: input event handler is valid*/ )
   if (!eventHandler) //Test sinnvoll?
     std::clog << "view::GlutWindow::glutKeyboard: no InputEventHandler attached (which could handle the event)." << std::endl;
 
@@ -137,7 +133,6 @@ void GlutWindow::glutKeyboard( unsigned char glut_key, int mouse_x, int mouse_y 
 
   controller::InputEventHandler::keyboard_event kbEvent = { static_cast<char>(glut_key), mask, { static_cast<double>(mouse_x), static_cast<double>(mouse_y) } };
   eventHandler->handle(kbEvent);
-  /*!!std::cerr << "!! view::GlutWindow::glutKeyboard: (PARTS ARE) UNIMPLEMENTED." << std::endl;*/
 }
 
 void GlutWindow::glutClose() 
