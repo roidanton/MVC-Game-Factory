@@ -91,7 +91,7 @@ void GlutWindow::close()
 
 void GlutWindow::glutDisplay() 
 {
-  GlutWindow* win = reinterpret_cast< GlutWindow* >( glutGetWindowData() );
+  GlutWindow* win = static_cast< GlutWindow* >( glutGetWindowData() );
   if( ! win )
     throw std::out_of_range( "view::GlutWindow::glutDisplay: Could not get pointer to GlutWindow." );
 
@@ -103,7 +103,7 @@ void GlutWindow::glutDisplay()
 
 void GlutWindow::glutReshape( int width, int height )
 {
-  GlutWindow* win = reinterpret_cast< GlutWindow* >( glutGetWindowData() );
+  GlutWindow* win = static_cast< GlutWindow* >( glutGetWindowData() );
   if( ! win ) 
     throw std::out_of_range( "view::GlutWindow::glutReshape: Could not get pointer to GlutWindow." );
 
@@ -118,7 +118,7 @@ void GlutWindow::glutReshape( int width, int height )
 
 void GlutWindow::glutKeyboard( unsigned char glut_key, int mouse_x, int mouse_y )
 {
-  GlutWindow* win = reinterpret_cast< GlutWindow* >( glutGetWindowData() );
+  GlutWindow* win = static_cast< GlutWindow* >( glutGetWindowData() );
   if( ! win )
     throw std::out_of_range( "view::GlutWindow::glutKeyboard: Could not get pointer to GlutWindow." );
 
@@ -145,7 +145,7 @@ void GlutWindow::glutKeyboard( unsigned char glut_key, int mouse_x, int mouse_y 
 
 void GlutWindow::glutClose() 
 { 
-  GlutWindow* win = reinterpret_cast< GlutWindow* >( glutGetWindowData() );
+  GlutWindow* win = static_cast< GlutWindow* >( glutGetWindowData() );
   if( ! win )
     throw std::out_of_range( "view::GlutWindow::glutClose: Could not get pointer to GlutWindow." );
 
