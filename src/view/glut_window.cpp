@@ -130,15 +130,12 @@ void GlutWindow::glutKeyboard( unsigned char glut_key, int mouse_x, int mouse_y 
     std::clog << "view::GlutWindow::glutKeyboard: no InputEventHandler attached (which could handle the event)." << std::endl;
 
   // TODO 4.1:  create keyboard-event data structure and forward it to the event handler
-  int mask = 0;
-  if (glutGetModifiers() == GLUT_ACTIVE_SHIFT)
-	  mask = mask |= controller::InputEventHandler::SHIFT_ACTIVE; // TODO bitmask korrekt behandelt?
-  if (glutGetModifiers() == GLUT_ACTIVE_CTRL)
-	  mask = mask |= controller::InputEventHandler::CTRL_ACTIVE;
-  if (glutGetModifiers() == GLUT_ACTIVE_ALT)
-	  mask = mask |= controller::InputEventHandler::ALT_ACTIVE;
+  int mask =
+    (!!(glutGetModifiers() & GLUT_ACTIVE_SHIFT) * controller::InputEventHandler::SHIFT_ACTIVE) |
+    (!!(glutGetModifiers() & GLUT_ACTIVE_CTRL ) * controller::InputEventHandler::CTRL_ACTIVE ) |
+    (!!(glutGetModifiers() & GLUT_ACTIVE_ALT  ) * controller::InputEventHandler::ALT_ACTIVE  );
 
-  controller::InputEventHandler::keyboard_event kbEvent = { glut_key, mask, { mouse_x, mouse_y } };
+  controller::InputEventHandler::keyboard_event kbEvent = { static_cast<char>(glut_key), mask, { static_cast<double>(mouse_x), static_cast<double>(mouse_y) } };
   eventHandler->handle(kbEvent);
   /*!!std::cerr << "!! view::GlutWindow::glutKeyboard: (PARTS ARE) UNIMPLEMENTED." << std::endl;*/
 }
