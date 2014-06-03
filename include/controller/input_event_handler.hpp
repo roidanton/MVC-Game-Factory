@@ -8,8 +8,12 @@ namespace controller
     public:
 
 		// TODO 4.1: declare pure-virtual handle function and define struct keyboard_event DONE?
-	  
-		enum { SHIFT_ACTIVE = 1, CTRL_ACTIVE = 2, ALT_ACTIVE = 4 }; // Bitmaske: 1000, 0100, 0010.
+
+        enum {
+            SHIFT_ACTIVE = 1 << 0,
+            CTRL_ACTIVE  = 1 << 1,
+            ALT_ACTIVE   = 1 << 2
+        };
 
       struct keyboard_event
       {
