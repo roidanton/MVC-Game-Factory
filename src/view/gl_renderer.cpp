@@ -42,7 +42,7 @@ void GlRenderer::visualize_model( GlutWindow& w )
   // pleb
   gluLookAt(0., -7., 0., 0., 0., 0., 0., 0., 1.);
 
-  for (const auto &obj: _game_model->objects()) {
+  for (const auto &obj: game_model()->objects()) {
     auto delegated = obj->getData<Drawable>();
     if (delegated) {
       delegated->visualize(*this, w);
