@@ -1,10 +1,13 @@
 # pragma once
 
-# include "model/game_object.hpp"
-
 # include <chrono>
 # include <vector>
 # include <memory>
+
+namespace model
+{
+class GameObject;
+}
 
 namespace model
 {

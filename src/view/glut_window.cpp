@@ -97,6 +97,7 @@ void GlutWindow::glutDisplay()
   // TODO 4.1: use renderer to draw the model DONE
   std::shared_ptr<view::GlRenderer> renderer = win->getRenderer();
   renderer->visualize_model(*win);
+  glutPostRedisplay();
 }
 
 void GlutWindow::glutReshape( int width, int height )

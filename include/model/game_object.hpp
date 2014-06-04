@@ -1,20 +1,21 @@
 # pragma once
 
-# include <memory>
-# include <string>
-# include <iostream>
-# include <map>
-# include <typeindex>
+#include <cassert>
+#include <memory>
+#include <string>
+#include <iostream>
+#include <map>
+#include <typeindex>
+#include <type_traits>
 
 namespace model
 {
   class Game;
 
-  class GameObject 
+  class GameObject: public std::enable_shared_from_this<GameObject>
   {
     public:
-
-      GameObject( const bool dynamic_flag = true, const std::string& name = "untitled GameObject" );
+      GameObject(bool dynamic_flag = true, const std::string &name = "untitled GameObject");
       // we need at least one virtual function to be polymorphic.
       virtual ~GameObject() { }
 
@@ -44,6 +45,26 @@ namespace model
   }; // GameObject
 
 } // model::
+
+
+// I know you don't like macros, but it's so much nicer this way
+#define GAME_OBJECT_GENERATE_REGISTER_DELEGATED(object, logic, audible, drawable) \
+  void object::register_delegated(controller::Engine &eng) \
+  { \
+    eng.game_logic()->logic_factory().register_module<object>( \
+      [](const std::shared_ptr<object> &obj) { return std::make_shared<logic>(); } \
+    ); \
+    eng.al_renderer()->audible_factory().register_module<object>( \
+      [](const std::shared_ptr<object> &obj) { return std::make_shared<audible>(); } \
+    ); \
+    eng.gl_renderer()->drawable_factory().register_module<object>( \
+      [](const std::shared_ptr<object> &obj) { return std::make_shared<drawable>(); } \
+    ); \
+  }
+
+// Also, these macros are a protest against overengineering (*cough* factories
+// *cough* in C++).
+
 
 // implementation //
 
@@ -76,4 +97,3 @@ std::shared_ptr< DataType > model::GameObject::getData()
 
   return data_type_ptr;
 }
-

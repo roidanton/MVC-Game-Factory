@@ -1,6 +1,7 @@
-# include "controller/glut_engine.hpp"
+#include "controller/glut_engine.hpp"
+#include "view/glut_window.hpp"
 
-# include <GL/freeglut.h>
+#include <GL/freeglut.h>
 
 using namespace ::controller;
 
@@ -16,8 +17,11 @@ void glutStepTimer( int interval )
   glutTimerFunc( interval, glutStepTimer, interval );
 }
 
-GlutEngine::GlutEngine( const std::shared_ptr< Logic >& l ) 
-: Engine( l ) 
+GlutEngine::GlutEngine(void): Engine()
+{}
+
+GlutEngine::GlutEngine(const std::shared_ptr<Logic> &l, const std::shared_ptr<view::AlRenderer> &al, const std::shared_ptr<view::GlRenderer> &gl)
+: Engine(l, al, gl)
 {}
 
 void GlutEngine::init( int& argc, char** argv )
@@ -32,6 +36,8 @@ void GlutEngine::init( int& argc, char** argv )
 
 void GlutEngine::run()
 {
+  std::shared_ptr<view::GlutWindow> wnd(new view::GlutWindow("ossu sekai ni", 800, 600, gl_renderer(), shared_from_this()));
+
   // Run game.
   glutMainLoop();
 }

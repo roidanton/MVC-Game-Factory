@@ -1,5 +1,7 @@
 # pragma once
 
+#include <cstdio>
+
 # include <memory>
 # include <map>
 # include <functional>
@@ -28,7 +30,7 @@ class factory_map
     }
 
     // Call module for derived type of *in.
-    std::shared_ptr< Out > create_for( const std::shared_ptr< InBase >& in )
+    std::shared_ptr<Out> create_for(const std::shared_ptr<InBase> &in) const
     {
       auto found = _modules.find( typeid( *in ) );
       if( found == _modules.end() )

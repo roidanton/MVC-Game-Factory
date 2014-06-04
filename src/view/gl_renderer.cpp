@@ -28,7 +28,28 @@ GlRenderer::delegate_factory_type const& GlRenderer::drawable_factory() const
 void GlRenderer::visualize_model( GlutWindow& w )
 {
   // TODO 4.3: initialize OpenGL context, call delegates and swap buffers
-  /*!!*/std::cerr << "!! view::GlRenderer::visualize_model: (PARTS ARE) UNIMPLEMENTED." << std::endl; 
+
+  // I personally would not call glClearColor() here; I'm just following orders, though
+  glClearColor(0.f, 0.f, 0.f, 1.f);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  // lol glMatrixMode, what is this, 1999?
+  glMatrixMode(GL_MODELVIEW);
+  // I'm embarrassed, to say the least
+  glLoadIdentity();
+
+  // lol using Z as the up vector
+  // pleb
+  gluLookAt(0., -7., 0., 0., 0., 0., 0., 0., 1.);
+
+  for (const auto &obj: _game_model->objects()) {
+    auto delegated = obj->getData<Drawable>();
+    if (delegated) {
+      delegated->visualize(*this, w);
+    }
+  }
+
+  glutSwapBuffers();
 }
 
 void GlRenderer::resize( GlutWindow& win ) 

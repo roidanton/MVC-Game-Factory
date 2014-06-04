@@ -1,9 +1,9 @@
-# include "model/game_object.hpp"
+#include "controller/engine.hpp"
+#include "model/game_object.hpp"
 
 using namespace ::model;
 
-::model::GameObject::GameObject( const bool dynamic_flag, const std::string& name )
-: _dynamic_flag( dynamic_flag ), _name( name )
+GameObject::GameObject(bool dynamic_flag, const std::string& name ):
+  _dynamic_flag(dynamic_flag), _name(name)
 {
-
 }

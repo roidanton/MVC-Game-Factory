@@ -4,7 +4,8 @@
 
 #include <AL/al.h>
 
-# include "model/game.hpp"
+#include "model/game.hpp"
+#include "model/game_object.hpp"
 
 # include "factory_map.hpp"
 

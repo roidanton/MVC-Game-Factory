@@ -4,7 +4,8 @@
 
 # include "controller/input_event_handler.hpp"
 
-# include "model/game.hpp"
+#include "model/game.hpp"
+#include "model/game_object.hpp"
 
 # include "factory_map.hpp"
 

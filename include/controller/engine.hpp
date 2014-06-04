@@ -1,16 +1,21 @@
 # pragma once
 
 #include <memory>
+#include <type_traits>
 
-# include "model/game.hpp"
-# include "controller/logic.hpp"
+#include "model/game.hpp"
+#include "model/game_object.hpp"
+#include "controller/logic.hpp"
+#include "view/al_renderer.hpp"
+#include "view/gl_renderer.hpp"
 
 namespace controller 
 {
   class Engine: public controller::InputEventHandler, public std::enable_shared_from_this<controller::Engine>
   {
     public:
-        Engine(const std::shared_ptr< Logic >& = std::shared_ptr<::controller::Logic>(new ::controller::Logic(std::shared_ptr<::model::Game>(new ::model::Game()))));
+        Engine(void);
+        Engine(const std::shared_ptr<Logic> &, const std::shared_ptr<view::AlRenderer> &, const std::shared_ptr<view::GlRenderer> &);
 
       virtual void init( int&, char** ) = 0;
       virtual void run() = 0;
@@ -20,6 +25,14 @@ namespace controller
 
       std::shared_ptr< Logic >&             game_logic();
       std::shared_ptr< Logic const > const game_logic() const;
+
+      std::shared_ptr<view::AlRenderer> &al_renderer(void);
+      const std::shared_ptr<view::AlRenderer> al_renderer(void) const;
+
+      std::shared_ptr<view::GlRenderer> &gl_renderer(void);
+      const std::shared_ptr<view::GlRenderer> gl_renderer(void) const;
+
+      template<typename GameObject> void addGameObject(std::shared_ptr<GameObject> obj);
 
     protected:
       // Calls everything we need to advance the game.
@@ -36,7 +49,21 @@ namespace controller
     private:
       std::shared_ptr< model::Game > _model;
       std::shared_ptr< Logic >       _logic;
+      std::shared_ptr<view::AlRenderer> _al;
+      std::shared_ptr<view::GlRenderer> _gl;
 
   }; // Engine
 
 } // controller::
+
+
+template<typename GameObject> void controller::Engine::addGameObject(std::shared_ptr<GameObject> obj)
+{
+  static_assert(std::is_base_of<model::GameObject, GameObject>::value, "addGameObject() must be given a point to a subclass of model::GameObject");
+
+  obj->registerData(game_logic()->logic_factory().create_for(obj));
+  obj->registerData(al_renderer()->audible_factory().create_for(obj));
+  obj->registerData(gl_renderer()->drawable_factory().create_for(obj));
+
+  game_model()->addGameObject(obj);
+}
