@@ -59,7 +59,7 @@ namespace controller
 
 template<typename GameObject> void controller::Engine::addGameObject(std::shared_ptr<GameObject> obj)
 {
-  static_assert(std::is_base_of<model::GameObject, GameObject>::value, "addGameObject() must be given a point to a subclass of model::GameObject");
+  static_assert(std::is_base_of<model::GameObject, GameObject>::value, "addGameObject() must be given a pointer to a subclass of model::GameObject");
 
   obj->registerData(game_logic()->logic_factory().create_for(obj));
   obj->registerData(al_renderer()->audible_factory().create_for(obj));
