@@ -1,4 +1,5 @@
 #include <memory>
+#include <AL/alut.h>
 
 #include "flappy_box/model/box.hpp"
 #include "flappy_box/controller/flappy_engine.hpp"
@@ -28,6 +29,8 @@ void FlappyEngine::init(int &argc, char **argv)
 {
   ::controller::GlutEngine::init(argc, argv);
 
+  alutInit(&argc, argv);
+
   Box::register_delegated(*this);
 
   addGameObject(std::make_shared<Box>());
@@ -37,4 +40,6 @@ void FlappyEngine::init(int &argc, char **argv)
 void FlappyEngine::run(void)
 {
   ::controller::GlutEngine::run();
+
+  alutExit();
 }

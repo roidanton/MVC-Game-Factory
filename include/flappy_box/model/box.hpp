@@ -43,9 +43,11 @@ public:
 
 
 private:
-  vec3_type s, v, a;
-  float phi; // phi is best greek letter
-  bool teapot;
+  vec3_type s = vec3_type(0.f, 0.f, 0.f);
+  vec3_type v = vec3_type(0.f, 0.f, 0.f);
+  vec3_type a = vec3_type(0.f, 0.f, 0.f);
+  float phi = 0.f; // phi is best greek letter
+  bool teapot = false;
 };
 
 }

@@ -11,12 +11,7 @@ using namespace flappy_box::view;
 
 
 Box::Box(void):
-  GameObject(true, "Flappy Box"),
-  s(0.f, 0.f, 0.f),
-  v(0.f, 0.f, 0.f),
-  a(0.f, 0.f, 0.f),
-  phi(0.f),
-  teapot(false)
+  GameObject(true, "Flappy Box")
 {
 }
 
