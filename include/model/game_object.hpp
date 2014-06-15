@@ -22,6 +22,9 @@ namespace model
       struct Data
       {
         virtual ~Data() {}
+
+        // Backlink
+        std::shared_ptr<model::GameObject> obj;
       };
 
       template< typename DataType >
@@ -49,16 +52,16 @@ namespace model
 
 // I know you don't like macros, but it's so much nicer this way
 #define GAME_OBJECT_GENERATE_REGISTER_DELEGATED(object, logic, audible, drawable) \
-  void object::register_delegated(controller::Engine &eng) \
+  void object::register_delegated(::controller::Engine &eng) \
   { \
     eng.game_logic()->logic_factory().register_module<object>( \
-      [](const std::shared_ptr<object> &obj) { return std::make_shared<logic>(); } \
+      [](const std::shared_ptr<object> &obj) { std::shared_ptr<logic> ptr(new logic); ptr->obj = obj; return ptr; } \
     ); \
     eng.al_renderer()->audible_factory().register_module<object>( \
-      [](const std::shared_ptr<object> &obj) { return std::make_shared<audible>(); } \
+      [](const std::shared_ptr<object> &obj) { std::shared_ptr<audible> ptr(new audible); ptr->obj = obj; return ptr; } \
     ); \
     eng.gl_renderer()->drawable_factory().register_module<object>( \
-      [](const std::shared_ptr<object> &obj) { return std::make_shared<drawable>(); } \
+      [](const std::shared_ptr<object> &obj) { std::shared_ptr<drawable> ptr(new drawable); ptr->obj = obj; return ptr; } \
     ); \
   }
 
