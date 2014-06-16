@@ -134,23 +134,47 @@ BoxDrawable::BoxDrawable(void)
     "in vec3 in_position;\n"
     "in vec3 in_normal;\n"
     "out vec3 vf_normal;\n"
+    "out vec3 vf_coord;\n"
     "uniform mat4 mvp;\n"
+    "uniform mat3 norm_mat;\n"
 
     "void main(void)\n"
     "{\n"
     "    gl_Position = mvp * vec4(in_position, 1.0);\n"
-    "    vf_normal = in_normal;\n"
+    "    vf_coord = in_position;\n"
+    "    vf_normal = normalize(norm_mat * in_normal);\n"
     "}"
   );
 
   fsh.source(
     "#version 150 core\n"
     "in vec3 vf_normal;\n"
-    "out vec4 out_color;\n"
+    "in vec3 vf_coord;\n"
+    "out vec4 out_mi, out_hi;\n"
+    "const vec3 light_dir = vec3(1.0, -3.0, 2.0);\n"
+    "uniform float enlightenment;\n"
 
     "void main(void)\n"
     "{\n"
-    "    out_color = vec4(normalize(vf_normal), 1.0);\n"
+    "    vec2 z = vec2(0.0);\n"
+    "    vec2 rc = vf_coord.xz / 500.0 + vec2(0.451, 0.4);\n"
+    "    int i;\n"
+
+    "    for (i = 0; i < 42; i++) {\n"
+    "        vec2 v = vec2(dot(z, vec2(z.x, -z.y)), 2 * z.x * z.y) + rc;\n"
+    "        if (length(v) > 2.) {\n"
+    "            break;\n"
+    "        }\n"
+    "        z = v;\n"
+    "    }\n"
+
+    "    vec3 diff_color = (1.0 - float(i) / 42.0) * (vf_coord + vec3(1.0, 1.0, 1.0));\n"
+
+    "    float diff_co = dot(normalize(vf_normal), normalize(-light_dir));\n"
+    "    vec3 col = enlightenment * diff_co * diff_color;\n"
+
+    "    out_mi = vec4(col, 1.0);\n"
+    "    out_hi = vec4(col / 10.0, 1.0);\n"
     "}"
   );
 
@@ -166,7 +190,8 @@ BoxDrawable::BoxDrawable(void)
   display_program->bind_attrib("in_position", 0);
   display_program->bind_attrib("in_normal", 1);
 
-  display_program->bind_frag("out_color", 0);
+  display_program->bind_frag("out_mi", 0);
+  display_program->bind_frag("out_hi", 1);
 
   if (!display_program->link()) {
     delete display_program;
@@ -204,6 +229,8 @@ void BoxDrawable::visualize(::view::GlRenderer &rnd, ::view::GlutWindow &)
 
   display_program->use();
   display_program->uniform<mat4>("mvp") = mvp;
+  display_program->uniform<mat3>("norm_mat") = mat3(mvp).transposed_inverse();
+  display_program->uniform<float>("enlightenment") = 5.f / fabs(box.position().y());
 
   mesh->draw(GL_TRIANGLES);
 }

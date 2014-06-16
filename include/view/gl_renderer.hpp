@@ -1,6 +1,8 @@
 # pragma once
 
 #include <memory>
+#include <dake/gl/framebuffer.hpp>
+#include <dake/gl/shader.hpp>
 #include <dake/math/matrix.hpp>
 
 #include "model/game.hpp"
@@ -46,6 +48,10 @@ namespace view
       delegate_factory_type _drawable_factory;
 
       dake::math::mat4 cam, proj;
+      dake::gl::framebuffer *fb, *blur_fbs[2];
+      dake::gl::program *blur_prg[2];
+
+      unsigned width, height;
 
   }; // GlRenderer
 

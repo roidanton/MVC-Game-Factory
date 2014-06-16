@@ -38,16 +38,12 @@ public:
   float &angle(void) { return phi; }
   const float &angle(void) const { return phi; }
 
-  bool &type(void) { return teapot; }
-  const bool &type(void) const { return teapot; }
-
 
 private:
   vec3_type s = vec3_type(0.f, 0.f, 0.f);
   vec3_type v = vec3_type(0.f, 0.f, 0.f);
   vec3_type a = vec3_type(0.f, 0.f, 0.f);
   float phi = 0.f; // phi is best greek letter
-  bool teapot = false;
 };
 
 }
