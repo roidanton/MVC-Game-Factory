@@ -28,4 +28,7 @@ bool BoxObjectLogic::advance(::controller::Logic &logic, const ::controller::Inp
   }
 
   box.angle() += step * 360.f / 5.f;
+  if (box.angle() >= 360.f) {
+    box.angle() -= 360.f;
+  }
 }
