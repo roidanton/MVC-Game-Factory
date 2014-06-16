@@ -23,6 +23,7 @@ namespace view
 
       AlRenderer() = delete;
       AlRenderer( std::shared_ptr< model::Game const > const& );
+      ~AlRenderer(void);
 
       std::shared_ptr< model::Game const > const& game_model() const;
 
@@ -36,7 +37,10 @@ namespace view
       std::string _name;
       std::shared_ptr< model::Game const > _game_model;
       delegate_factory_type _audible_factory;
-      
+
+      ALuint bg_source = AL_NONE;
+      ALuint bg_buffer;
+
   }; // AlRenderer
 
 } // view::

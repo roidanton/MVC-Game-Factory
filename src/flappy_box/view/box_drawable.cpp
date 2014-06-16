@@ -202,7 +202,7 @@ BoxDrawable::BoxDrawable(void)
 
 
   std::vector<vec3> positions, normals;
-  load_wavefront("mesh.obj", positions, normals);
+  load_wavefront("assets/mesh.obj", positions, normals);
 
   mesh = new gl::vertex_array;
   mesh->set_elements(positions.size());
