@@ -28,16 +28,23 @@ void GlutEngine::init( int& argc, char** argv )
 {
   glutInit( &argc, argv );
   glutSetOption( GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION );
+
+  glutInitContextVersion(3, 3);
+  glutInitContextProfile(GLUT_CORE_PROFILE);
+
   // Set global function which will be invoked by glutStepTimer.
   __controller__glut_engine__step_func = [this](){ this->step(  ); };
   // Register glutStepTimer for the first time, which re-registers itself until the glutMainLoop finishes.
   glutTimerFunc( _prefered_timestep_millisec, glutStepTimer, _prefered_timestep_millisec );
+
+  // We need this here or we won't have a context
+  wnd = std::make_shared<view::GlutWindow>("ossu sekai ni", 800, 600, gl_renderer(), shared_from_this());
+
+  gl_renderer()->init_with_context();
 }
 
 void GlutEngine::run()
 {
-  std::shared_ptr<view::GlutWindow> wnd(new view::GlutWindow("ossu sekai ni", 800, 600, gl_renderer(), shared_from_this()));
-
   // Run game.
   glutMainLoop();
 }

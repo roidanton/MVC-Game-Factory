@@ -23,6 +23,8 @@ struct BoxAudible: public ::view::AlRenderer::Audible {
   // You do realize that underscore prefixes are considered reserved?
   ALuint _al_box_sources[2];
   ALuint _al_sine_buffers[2];
+
+  bool playback_started = false;
 };
 
 }

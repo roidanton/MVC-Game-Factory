@@ -22,7 +22,6 @@ BoxAudible::BoxAudible(void)
     alSource3f(_al_box_sources[is_cat], AL_POSITION, .5f - is_cat, 0.f, 0.f);
     alSourcei(_al_box_sources[is_cat], AL_BUFFER, _al_sine_buffers[is_cat]);
     alSourcei(_al_box_sources[is_cat], AL_LOOPING, true);
-    alSourcePlay(_al_box_sources[is_cat]);
   } while (is_cat ^= is_cow);
 }
 
@@ -36,9 +35,16 @@ void BoxAudible::auralize(::view::AlRenderer &)
 {
   Box &box = dynamic_cast<Box &>(*obj);
 
+  if (!playback_started) {
+    alSourcePlay(_al_box_sources[0]);
+    alSourcePlay(_al_box_sources[1]);
+
+    playback_started = true;
+  }
+
   // This seems like a horrible idea (adding to the frequency instead of
   // multiplying it)
-  float abs_freq = target_frequency + 10.f * fabs(box.position().z());
+  float abs_freq = target_frequency + 10.f * fabs(box.position().y());
 
   alSourcef(_al_box_sources[0], AL_PITCH, abs_freq / base_frequency);
 }

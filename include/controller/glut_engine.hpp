@@ -3,7 +3,8 @@
 #include <chrono>
 #include <memory>
 
-# include "controller/engine.hpp"
+#include "controller/engine.hpp"
+#include "view/glut_window.hpp"
 
 namespace controller 
 {
@@ -19,6 +20,7 @@ namespace controller
     protected:
       // time interval in which the (virtual) Engine::step function should be called.
       unsigned int _prefered_timestep_millisec = 30;
+      std::shared_ptr<view::GlutWindow> wnd;
 
   }; // GlutEngine
 

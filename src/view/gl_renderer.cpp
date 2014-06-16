@@ -1,14 +1,25 @@
-# include "view/gl_renderer.hpp"
+#include <dake/gl/gl.hpp>
+#include <dake/math/matrix.hpp>
 
+# include "view/gl_renderer.hpp"
 # include "view/glut_window.hpp"
 
 # include "GL/freeglut.h"
 
 using namespace ::view;
+using namespace dake::math;
 
 GlRenderer::GlRenderer( std::shared_ptr< model::Game const > const& g )
 : _game_model( g )
 {}
+
+void GlRenderer::init_with_context(void)
+{
+  glClearColor(.1f, .2f, .3f, 1.f);
+
+  glEnable(GL_DEPTH_TEST);
+  glEnable(GL_CULL_FACE);
+}
 
 std::shared_ptr< ::model::Game const > const& GlRenderer::game_model() const
 {
@@ -27,20 +38,9 @@ GlRenderer::delegate_factory_type const& GlRenderer::drawable_factory() const
 
 void GlRenderer::visualize_model( GlutWindow& w )
 {
-  // TODO 4.3: initialize OpenGL context, call delegates and swap buffers
-
-  // I personally would not call glClearColor() here; I'm just following orders, though
-  glClearColor(.1f, .2f, .3f, 1.f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  // lol glMatrixMode, what is this, 1999?
-  glMatrixMode(GL_MODELVIEW);
-  // I'm embarrassed, to say the least
-  glLoadIdentity();
-
-  // lol using Z as the up vector
-  // pleb
-  gluLookAt(0., -7., 0., 0., 0., 0., 0., 0., 1.);
+  cam = mat4::identity().translated(vec3(0.f, 0.f, -7.f));
 
   for (const auto &obj: game_model()->objects()) {
     auto delegated = obj->getData<Drawable>();
@@ -54,8 +54,7 @@ void GlRenderer::visualize_model( GlutWindow& w )
 
 void GlRenderer::resize( GlutWindow& win ) 
 {
-  glViewport( 0,0, win.width(), win.height() );
-  glMatrixMode( GL_PROJECTION );
-  glLoadIdentity(); //Reset the camera
-  gluPerspective( 45., win.width() / double( win.height() ), .5, 100. );
+  glViewport(0, 0, win.width(), win.height());
+
+  proj = mat4::projection(static_cast<float>(M_PI) / 2.f, static_cast<float>(win.width()) / win.height(), .5f, 100.f);
 }

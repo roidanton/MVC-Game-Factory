@@ -1,5 +1,6 @@
 #include <cmath>
 #include <chrono>
+#include <cmath>
 
 #include "math.hpp"
 #include "flappy_box/model/box.hpp"
@@ -19,19 +20,17 @@ bool BoxObjectLogic::advance(::controller::Logic &logic, const ::controller::Inp
   box.acceleration() /= exp(4.2f * step); // exponential decrease
 
   if (evt.key == 'w') {
-    box.acceleration() = vec3_type(0.f, 0.f, 20.f);
-  } else if (evt.key == 'q') {
-    box.type() = !box.type();
+    box.acceleration() = vec3_type(0.f, 20.f, 0.f);
   }
 
-  vec3_type real_accel = box.acceleration() + vec3_type(0.f, 0.f, -9.81f); // who in their right mind uses Z as the vertical axis
+  vec3_type real_accel = box.acceleration() + vec3_type(0.f, -9.81f, 0.f);
 
   box.position() += box.speed() * step;
   box.speed()    += real_accel  * step;
 
-  box.angle() += step * 360.f / 5.f;
-  if (box.angle() >= 360.f) {
-    box.angle() -= 360.f;
+  box.angle() += step * 2.f * static_cast<float>(M_PI) / 5.f;
+  if (box.angle() >= 2.f * static_cast<float>(M_PI)) {
+    box.angle() -= 2.f * static_cast<float>(M_PI);
   }
 
   return true;

@@ -11,6 +11,8 @@ namespace view
 {
 
 struct BoxDrawable: public ::view::GlRenderer::Drawable {
+  BoxDrawable(void);
+
   virtual void visualize(::view::GlRenderer &, ::view::GlutWindow &);
 };
 
