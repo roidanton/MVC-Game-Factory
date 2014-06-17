@@ -30,6 +30,7 @@ void FlappyEngine::init(int &argc, char **argv)
   ::controller::GlutEngine::init(argc, argv);
 
   alutInit(&argc, argv);
+  al_renderer()->init_with_context();
 
   Box::register_delegated(*this);
 

@@ -25,6 +25,8 @@ namespace view
       AlRenderer( std::shared_ptr< model::Game const > const& );
       ~AlRenderer(void);
 
+      void init_with_context(void);
+
       std::shared_ptr< model::Game const > const& game_model() const;
 
       /// Return factory creating Audible delegates.

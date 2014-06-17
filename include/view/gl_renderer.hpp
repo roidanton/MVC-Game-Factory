@@ -3,6 +3,7 @@
 #include <memory>
 #include <dake/gl/framebuffer.hpp>
 #include <dake/gl/shader.hpp>
+#include <dake/gl/vertex_array.hpp>
 #include <dake/math/matrix.hpp>
 
 #include "model/game.hpp"
@@ -48,8 +49,9 @@ namespace view
       delegate_factory_type _drawable_factory;
 
       dake::math::mat4 cam, proj;
-      dake::gl::framebuffer *fb, *blur_fbs[2];
-      dake::gl::program *blur_prg[2];
+      std::shared_ptr<dake::gl::framebuffer> fb, blur_fbs[2];
+      std::shared_ptr<dake::gl::program> fb_prg, blur_prg[2], star_prg;
+      std::shared_ptr<dake::gl::vertex_array> fb_vertices, stars;
 
       unsigned width, height;
       float star_zdiff = 0.f;

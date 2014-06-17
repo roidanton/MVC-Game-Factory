@@ -28,10 +28,15 @@ using namespace dake;
 using namespace dake::math;
 
 
+// These are common for all objects of this class, therefore keep them static
+// for all
 static gl::program *display_program;
 static gl::vertex_array *mesh;
 
 
+// Yep, I'm that kind of guy who just writes a wavefront OBJ loader because he
+// has some meshes in that format on disk.
+// (To be fair, most of this is taken from CG1 exercise 1)
 static void load_wavefront(const char *fname, std::vector<vec3> &p, std::vector<vec3> &n)
 {
   std::ifstream file(fname);

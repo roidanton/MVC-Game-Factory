@@ -8,6 +8,7 @@
 
 #include <chrono>
 #include <cmath>
+#include <memory>
 #include <random>
 #include <stdexcept>
 
@@ -27,13 +28,7 @@ using namespace dake::math;
 #endif
 
 
-static gl::program *fb_prg;
-static gl::vertex_array *fb_vertices;
-
 const int STAR_COUNT = 1024;
-
-static gl::program *star_prg;
-static gl::vertex_array *stars;
 
 
 GlRenderer::GlRenderer( std::shared_ptr< model::Game const > const& g )
@@ -48,7 +43,7 @@ void GlRenderer::init_with_context(void)
   glEnable(GL_CULL_FACE);
 
 
-  fb = new gl::framebuffer(2);
+  fb = std::make_shared<gl::framebuffer>(2);
 
   // TMU 0 will be used by the blur FBO textures later; they "replace" the
   // second texture of this FBO
@@ -56,8 +51,8 @@ void GlRenderer::init_with_context(void)
   (*fb)[1].set_tmu(0);
 
 
-  blur_fbs[0] = new gl::framebuffer(1);
-  blur_fbs[1] = new gl::framebuffer(1);
+  blur_fbs[0] = std::make_shared<gl::framebuffer>(1);
+  blur_fbs[1] = std::make_shared<gl::framebuffer>(1);
 
 
   gl::shader vsh(gl::shader::VERTEX), fsh(gl::shader::FRAGMENT);
@@ -91,7 +86,7 @@ void GlRenderer::init_with_context(void)
     throw std::runtime_error("Could not compile all FB display shaders");
   }
 
-  fb_prg = new gl::program;
+  fb_prg = std::make_shared<gl::program>();
 
   *fb_prg << vsh;
   *fb_prg << fsh;
@@ -155,7 +150,7 @@ void GlRenderer::init_with_context(void)
   }
 
   for (int i: {0, 1}) {
-    blur_prg[i] = new gl::program;
+    blur_prg[i] = std::make_shared<gl::program>();
 
     *blur_prg[i] << vsh;
     *blur_prg[i] << (i ? blur_y : blur_x);
@@ -206,7 +201,7 @@ void GlRenderer::init_with_context(void)
     throw std::runtime_error("Could not compile star shaders");
   }
 
-  star_prg = new gl::program;
+  star_prg = std::make_shared<gl::program>();
 
   *star_prg << star_vsh;
   *star_prg << star_fsh;
@@ -222,7 +217,7 @@ void GlRenderer::init_with_context(void)
   }
 
 
-  fb_vertices = new gl::vertex_array;
+  fb_vertices = std::make_shared<gl::vertex_array>();
   fb_vertices->set_elements(4);
 
   vec2 fb_vertex_positions[] = {
@@ -235,7 +230,7 @@ void GlRenderer::init_with_context(void)
   va_p->load();
 
 
-  stars = new gl::vertex_array;
+  stars = std::make_shared<gl::vertex_array>();
   stars->set_elements(STAR_COUNT);
 
   vec3 *star_positions = new vec3[STAR_COUNT], *star_colors = new vec3[STAR_COUNT];
@@ -352,7 +347,7 @@ void GlRenderer::resize( GlutWindow& win )
   gl::framebuffer::unbind();
   glViewport(0, 0, width, height);
 
-  for (gl::framebuffer *fbo: {fb, blur_fbs[0], blur_fbs[1]}) {
+  for (std::shared_ptr<gl::framebuffer> fbo: {fb, blur_fbs[0], blur_fbs[1]}) {
     fbo->bind();
     fbo->resize(width, height);
     glViewport(0, 0, width, height);
