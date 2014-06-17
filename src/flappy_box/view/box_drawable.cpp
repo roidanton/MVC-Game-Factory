@@ -40,6 +40,7 @@ static void load_wavefront(const char *fname, std::vector<vec3> &p, std::vector<
   }
 
   std::vector<vec3> vertices, normals;
+  vec3 lower_left(HUGE_VALF, HUGE_VALF, HUGE_VALF), upper_right(-HUGE_VALF, -HUGE_VALF, -HUGE_VALF);
 
   std::string str_line;
   while (std::getline(file, str_line, '\n')) {
@@ -110,12 +111,38 @@ static void load_wavefront(const char *fname, std::vector<vec3> &p, std::vector<
       }
 
       for (int i = backwards ? 2 : 0; backwards ? i >= 0 : i < 3; backwards ? i-- : i++) {
+        for (int j = 0; j < 3; j++) {
+          if ((*pos[i])[j] < lower_left[j]) {
+            lower_left[j] = (*pos[i])[j];
+          }
+          if ((*pos[i])[j] > upper_right[j]) {
+            upper_right[j] = (*pos[i])[j];
+          }
+        }
+
         p.push_back(*pos[i]);
         if (nrm[i]) {
           n.push_back(*nrm[i]);
         }
       }
     }
+  }
+
+  // Normalize the model to fit in a cube with a side length of 3 (because
+  // that's the size of the model I wrote this code with)
+  float scale = HUGE_VALF;
+  for (int i = 0; i < 3; i++) {
+    float s = 3.f / (upper_right[i] - lower_left[i]);
+    if (s < scale) {
+      scale = s;
+    }
+  }
+
+  // And the cube should encompass the center
+  vec3 translation = -(upper_right + lower_left) / 2;
+
+  for (vec3 &pos: p) {
+    pos = scale * (pos + translation);
   }
 }
 
@@ -168,7 +195,7 @@ BoxDrawable::BoxDrawable(void)
     "        z = v;\n"
     "    }\n"
 
-    "    vec3 diff_color = (1.0 - float(i) / 42.0) * (vf_coord + vec3(1.0, 1.0, 1.0));\n"
+    "    vec3 diff_color = (1.0 - float(i) / 42.0) * (vf_coord / 3.0 + vec3(1.0, 1.0, 1.0));\n"
 
     "    float diff_co = dot(normalize(vf_normal), normalize(-light_dir));\n"
     "    vec3 col = enlightenment * diff_co * diff_color;\n"
@@ -230,7 +257,7 @@ void BoxDrawable::visualize(::view::GlRenderer &rnd, ::view::GlutWindow &)
   display_program->use();
   display_program->uniform<mat4>("mvp") = mvp;
   display_program->uniform<mat3>("norm_mat") = mat3(mvp).transposed_inverse();
-  display_program->uniform<float>("enlightenment") = 5.f / fabs(box.position().y());
+  display_program->uniform<float>("enlightenment") = 5.f / (.2f + fabs(box.position().y()));
 
   mesh->draw(GL_TRIANGLES);
 }
