@@ -1,3 +1,4 @@
+#include <cmath>
 #include <chrono>
 
 #include "math.hpp"
@@ -19,7 +20,7 @@ bool BoxObjectLogic::advance(::controller::Logic &logic, const ::controller::Inp
   box.position() += box.speed() * step;
   box.speed()    += real_accel  * step;
 
-  box.acceleration() /= 1.1f; // exponential decrease
+  box.acceleration() /= exp(4.2f * step); // exponential decrease
 
   if (evt.key == 'w') {
     box.acceleration() = vec3_type(0.f, 0.f, 20.f);
