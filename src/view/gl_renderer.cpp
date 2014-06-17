@@ -193,7 +193,6 @@ void GlRenderer::init_with_context(void)
     "{\n"
     "    out_mi = vec4(vec3(min(3.0 * vf_zpos, 1.0)) * vf_color, 1.0);\n"
     "    out_hi = vec4(0.0, 0.0, 0.0, 1.0);\n"
-    "    gl_FragDepth = 0.9999;\n"
     "}"
   );
 
@@ -293,8 +292,10 @@ void GlRenderer::visualize_model( GlutWindow& w )
   star_prg->uniform<mat4>("mvp") = proj * cam;
   star_prg->uniform<float>("zdiff") = (std::chrono::duration_cast<std::chrono::milliseconds>(game_model()->timestamp().time_since_epoch()).count() % 4000) / 400.f;
 
-
   stars->draw(GL_POINTS);
+
+  // Stars should not occlude anything
+  glClear(GL_DEPTH_BUFFER_BIT);
 
 
   for (const auto &obj: game_model()->objects()) {
