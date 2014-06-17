@@ -1,4 +1,3 @@
-#include <cstdio>
 #include "controller/engine.hpp"
 #include "test43/model/test43_object.hpp"
 #include "test43/controller/test43_object_logic.hpp"

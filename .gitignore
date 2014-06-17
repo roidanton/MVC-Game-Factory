@@ -142,3 +142,4 @@ UpgradeLog*.htm
 App_Data/*.mdf
 App_Data/*.ldf
 
+cscope*

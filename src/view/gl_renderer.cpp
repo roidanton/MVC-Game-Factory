@@ -30,7 +30,7 @@ void GlRenderer::visualize_model( GlutWindow& w )
   // TODO 4.3: initialize OpenGL context, call delegates and swap buffers
 
   // I personally would not call glClearColor() here; I'm just following orders, though
-  glClearColor(0.f, 0.f, 0.f, 1.f);
+  glClearColor(.1f, .2f, .3f, 1.f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   // lol glMatrixMode, what is this, 1999?
