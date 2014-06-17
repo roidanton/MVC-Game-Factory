@@ -25,7 +25,7 @@ void BoxDrawable::visualize(::view::GlRenderer &, ::view::GlutWindow &)
   glColor3f(.75f, .75f, .75f);
 
   // function pointers are best pointers
-  (box.type() ? glutWireTeapot : glutWireCube)(1.f);
+  (box.type() ? glutWireTeapot : glutWireCube)(2.f);
 
   glPopMatrix();
 }
