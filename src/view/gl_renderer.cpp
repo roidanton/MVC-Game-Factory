@@ -30,7 +30,7 @@ using namespace dake::math;
 static gl::program *fb_prg;
 static gl::vertex_array *fb_vertices;
 
-const int STAR_COUNT = 4096;
+const int STAR_COUNT = 1024;
 
 static gl::program *star_prg;
 static gl::vertex_array *stars;
