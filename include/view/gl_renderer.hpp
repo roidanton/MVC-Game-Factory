@@ -52,6 +52,7 @@ namespace view
       dake::gl::program *blur_prg[2];
 
       unsigned width, height;
+      float star_zdiff = 0.f;
 
   }; // GlRenderer
 
