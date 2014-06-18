@@ -25,9 +25,6 @@
     <Filter Include="Header Files\flappy_box\model">
       <UniqueIdentifier>{9e625c39-e209-4412-bd18-0af341b225af}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\flappy_box\view">
-      <UniqueIdentifier>{27bc7603-68d3-44c7-baa8-c84e98258e18}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\model">
       <UniqueIdentifier>{ae562060-2f1e-45df-9a3b-db65f0e09ffe}</UniqueIdentifier>
     </Filter>
@@ -54,6 +51,33 @@
     </Filter>
     <Filter Include="Source Files\view">
       <UniqueIdentifier>{6ed6b493-494d-4914-bd4a-ce739097c702}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\flappy_box\view">
+      <UniqueIdentifier>{27bc7603-68d3-44c7-baa8-c84e98258e18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\test43">
+      <UniqueIdentifier>{fcfddea6-6760-49ca-a375-fe9812574734}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\test43\controller">
+      <UniqueIdentifier>{d939b0c5-dda2-469f-b036-5905a733ed4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\test43\model">
+      <UniqueIdentifier>{80c595fe-eaab-4044-bf5d-f5a899dbc316}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\test43\view">
+      <UniqueIdentifier>{3338acb0-a9f8-4995-9ddf-c1d216bc3d49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\test43">
+      <UniqueIdentifier>{3f22689e-9a23-487f-a519-b2dfcb65fc20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\test43\controller">
+      <UniqueIdentifier>{cc36d565-2ca5-490a-99d7-1bd9d3eaf567}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\test43\model">
+      <UniqueIdentifier>{239332f4-10e7-4b02-9bef-db4c4fd49ff0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\test43\view">
+      <UniqueIdentifier>{0b08e8e2-8f3d-4337-a905-cd14679caa9a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +114,33 @@
     <ClInclude Include="..\..\include\view\glut_window.hpp">
       <Filter>Header Files\view</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\flappy_box\controller\box_object_logic.hpp">
+      <Filter>Header Files\flappy_box\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\flappy_box\controller\flappy_engine.hpp">
+      <Filter>Header Files\flappy_box\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\flappy_box\model\box.hpp">
+      <Filter>Header Files\flappy_box\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\flappy_box\view\box_audible.hpp">
+      <Filter>Header Files\flappy_box\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\flappy_box\view\box_drawable.hpp">
+      <Filter>Header Files\flappy_box\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test43\controller\test43_object_logic.hpp">
+      <Filter>Header Files\test43\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test43\model\test43_object.hpp">
+      <Filter>Header Files\test43\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test43\view\test43_drawable.hpp">
+      <Filter>Header Files\test43\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test43\view\test43_audible.hpp">
+      <Filter>Header Files\test43\view</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main41.cpp">
@@ -118,6 +169,39 @@
     </ClCompile>
     <ClCompile Include="..\..\src\view\glut_window.cpp">
       <Filter>Source Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\main44.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\main43.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\flappy_box\controller\box_object_logic.cpp">
+      <Filter>Source Files\flappy_box\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\flappy_box\controller\flappy_engine.cpp">
+      <Filter>Source Files\flappy_box\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\flappy_box\model\box.cpp">
+      <Filter>Source Files\flappy_box\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\flappy_box\view\box_audible.cpp">
+      <Filter>Source Files\flappy_box\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\flappy_box\view\box_drawable.cpp">
+      <Filter>Source Files\flappy_box\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\test43\controller\test43_object_logic.cpp">
+      <Filter>Source Files\test43\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\test43\model\test43_object.cpp">
+      <Filter>Source Files\test43\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\test43\view\test43_audible.cpp">
+      <Filter>Source Files\test43\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\test43\view\test43_drawable.cpp">
+      <Filter>Source Files\test43\view</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
