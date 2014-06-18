@@ -4,7 +4,7 @@ project(cpp4cg4)
 
 include_directories( include )
 
-add_definitions("-std=c++11 -g2 -O3")
+add_definitions("-std=c++11 -g2 -O3 -Wall -Wextra")
 
 # look for Cmake modules in project directory
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}")
