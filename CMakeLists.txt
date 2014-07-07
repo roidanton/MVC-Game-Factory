@@ -46,6 +46,11 @@ add_definitions(${OPENAL_DEFINITIONS})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib/dake/include)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib/dake)
 
+find_package(PNG REQUIRED)
+include_directories(${PNG_INCLUDE_DIRS})
+link_directories(${PNG_LIBRARY_DIRS})
+add_definitions(${PNG_DEFINITIONS})
+
 #########################################################
 # EXECUTABLE AUDIOphile
 #########################################################
@@ -70,7 +75,7 @@ add_executable( ex41       src/main41.cpp
                            # src/flappy_box/view/box_al_audible.cpp
                            # src/flappy_box/view/box_gl_drawable.cpp
               )
-target_link_libraries( ex41 ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${OPENAL_LIBRARY} ${ALUT_LIBRARY} -ldake )
+target_link_libraries( ex41 ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${OPENAL_LIBRARY} ${ALUT_LIBRARY} -ldake ${PNG_LIBRARY} )
 
 add_executable( ex43       src/main43.cpp
                            # model
@@ -90,7 +95,7 @@ add_executable( ex43       src/main43.cpp
                            src/test43/view/test43_audible.cpp
                            src/test43/view/test43_drawable.cpp
               )
-target_link_libraries( ex43 ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${OPENAL_LIBRARY} ${ALUT_LIBRARY} -ldake )
+target_link_libraries( ex43 ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${OPENAL_LIBRARY} ${ALUT_LIBRARY} -ldake ${PNG_LIBRARY} )
 
 add_executable( ex44       src/main44.cpp
                            # model
@@ -111,4 +116,4 @@ add_executable( ex44       src/main44.cpp
                            src/flappy_box/view/box_audible.cpp
                            src/flappy_box/view/box_drawable.cpp
               )
-target_link_libraries( ex44 ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${OPENAL_LIBRARY} ${ALUT_LIBRARY} -ldake )
+target_link_libraries( ex44 ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${OPENAL_LIBRARY} ${ALUT_LIBRARY} -ldake ${PNG_LIBRARY} )

@@ -3,6 +3,7 @@
 #endif
 
 #include <dake/gl/gl.hpp>
+#include <dake/gl/obj.hpp>
 #include <dake/gl/shader.hpp>
 #include <dake/gl/vertex_array.hpp>
 #include <dake/gl/vertex_attrib.hpp>
@@ -32,124 +33,6 @@ using namespace dake::math;
 // for all
 static gl::program *display_program;
 static gl::vertex_array *mesh;
-
-
-// Yep, I'm that kind of guy who just writes a wavefront OBJ loader because he
-// has some meshes in that format on disk.
-// (To be fair, most of this is taken from CG1 exercise 1)
-static void load_wavefront(const char *fname, std::vector<vec3> &p, std::vector<vec3> &n)
-{
-  std::ifstream file(fname);
-  if (!file.is_open()) {
-    throw std::runtime_error("Could not load mesh (could not open file)");
-  }
-
-  std::vector<vec3> vertices, normals;
-  vec3 lower_left(HUGE_VALF, HUGE_VALF, HUGE_VALF), upper_right(-HUGE_VALF, -HUGE_VALF, -HUGE_VALF);
-
-  std::string str_line;
-  while (std::getline(file, str_line, '\n')) {
-    std::stringstream line(str_line);
-
-    std::string deftype;
-    line >> deftype;
-
-    if (deftype == "v") {
-      vec3 vertex;
-      line >> vertex.x() >> vertex.y() >> vertex.z();
-      vertices.push_back(vertex);
-    } else if (deftype == "vn") {
-      vec3 normal;
-      line >> normal.x() >> normal.y() >> normal.z();
-      normals.push_back(normal);
-    } else if (deftype == "f") {
-      vec3 *pos[3] = {nullptr}, *nrm[3] = {nullptr};
-
-      std::string entry;
-      for (int corner = 0; std::getline(line, entry, ' '); corner++) {
-        if (entry.empty()) {
-          corner--;
-          continue;
-        }
-
-        if (corner >= 3) {
-          throw std::runtime_error("Could not load mesh (not triangualized)");
-        }
-
-        std::stringstream entry_stream(entry);
-        std::string indexstr;
-        for (int i = 0; std::getline(entry_stream, indexstr, '/'); i++) {
-          int index;
-          char *end;
-
-          if (indexstr.empty()) {
-            index = -1;
-          } else {
-            index = strtol(indexstr.c_str(), &end, 10);
-            if (*end) {
-              throw std::runtime_error("Could not load mesh (invalid index given, is not a number)");
-            }
-          }
-
-          if (index > 0) {
-            switch (i) {
-              case 0: pos[corner] = &vertices[index - 1]; break;
-              case 1: break;
-              case 2: nrm[corner] = &normals[index - 1]; break;
-              default: throw std::runtime_error("Could not load mesh (invalid number of vertex attributes given)");
-            }
-          }
-        }
-
-        if (!pos[corner]) {
-          throw std::runtime_error("Could not load mesh (no vertex position given)");
-        }
-      }
-
-      bool backwards = false;
-      if (nrm[0] || nrm[1] || nrm[2]) {
-        // gotta love gcc
-        vec3 *normal = nrm[0] ?: nrm[1] ?: nrm[2];
-
-        vec3 nat_norm = (*pos[1] - *pos[0]).cross(*pos[2] - *pos[0]);
-        backwards = (nat_norm.dot(*normal) < 0.f);
-      }
-
-      for (int i = backwards ? 2 : 0; backwards ? i >= 0 : i < 3; backwards ? i-- : i++) {
-        for (int j = 0; j < 3; j++) {
-          if ((*pos[i])[j] < lower_left[j]) {
-            lower_left[j] = (*pos[i])[j];
-          }
-          if ((*pos[i])[j] > upper_right[j]) {
-            upper_right[j] = (*pos[i])[j];
-          }
-        }
-
-        p.push_back(*pos[i]);
-        if (nrm[i]) {
-          n.push_back(*nrm[i]);
-        }
-      }
-    }
-  }
-
-  // Normalize the model to fit in a cube with a side length of 3 (because
-  // that's the size of the model I wrote this code with)
-  float scale = HUGE_VALF;
-  for (int i = 0; i < 3; i++) {
-    float s = 3.f / (upper_right[i] - lower_left[i]);
-    if (s < scale) {
-      scale = s;
-    }
-  }
-
-  // And the cube should encompass the center
-  vec3 translation = -(upper_right + lower_left) / 2;
-
-  for (vec3 &pos: p) {
-    pos = scale * (pos + translation);
-  }
-}
 
 
 BoxDrawable::BoxDrawable(void)
@@ -233,21 +116,31 @@ BoxDrawable::BoxDrawable(void)
   }
 
 
-  std::vector<vec3> positions, normals;
-  load_wavefront("assets/mesh.obj", positions, normals);
+  gl::obj m = gl::load_obj("assets/mesh.obj");
+  if (m.sections.size() != 1) {
+    throw std::runtime_error("Invalid mesh given: Does not have exactly one section");
+  }
 
-  mesh = new gl::vertex_array;
-  mesh->set_elements(positions.size());
+  gl::obj_section ms = m.sections.front();
 
-  gl::vertex_attrib *va_p = mesh->attrib(0);
-  va_p->format(3);
-  va_p->data(positions.data());
-  va_p->load();
+  // Normalize the model to fit in a cube with a side length of 3 (because
+  // that's the size of the model I wrote this code with)
+  float scale = HUGE_VALF;
+  for (int i = 0; i < 3; i++) {
+    float s = 3.f / (m.upper_right[i] - m.lower_left[i]);
+    if (s < scale) {
+      scale = s;
+    }
+  }
 
-  gl::vertex_attrib *va_n = mesh->attrib(1);
-  va_n->format(3);
-  va_n->data(normals.data());
-  va_n->load();
+  // And the cube should encompass the center
+  vec3 translation = -(m.upper_right + m.lower_left) / 2;
+
+  for (vec3 &pos: ms.positions) {
+    pos = scale * (pos + translation);
+  }
+
+  mesh = ms.make_vertex_array(0, -1, 1);
 }
 
 
